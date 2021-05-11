@@ -33,26 +33,26 @@ lazy val orcus = project
     Compile / console / scalacOptions += "-Yrepl-class-based"
   )
   .aggregate(core,
-             hbase,
+            //  hbase,
              bigtable,
              `cats-effect`,
-             `hbase-cats-free`,
-             monix,
+            //  `hbase-cats-free`,
+            //  monix,
              `twitter-util`,
-             `hbase-example`,
-             `bigtable-example`,
-             benchmark
+            //  `hbase-example`,
+            //  `bigtable-example`,
+            //  benchmark
   )
   .dependsOn(core,
-             hbase,
+            //  hbase,
              bigtable,
              `cats-effect`,
-             `hbase-cats-free`,
-             monix,
+            //  `hbase-cats-free`,
+            //  monix,
              `twitter-util`,
-             `hbase-example`,
+            //  `hbase-example`,
              `bigtable-example`,
-             benchmark
+            //  benchmark
   )
 
 lazy val core = project
@@ -75,29 +75,29 @@ lazy val core = project
       .map(_.withSources)
   )
 
-lazy val hbase = project
-  .in(file("modules/hbase"))
-  .settings(sharedSettings)
-  .settings(crossVersionSharedSources)
-  .settings(
-    description := "orcus hbase",
-    moduleName  := "orcus-hbase",
-    libraryDependencies += Hbase.withSources()
-  )
-  .dependsOn(core)
+// lazy val hbase = project
+//   .in(file("modules/hbase"))
+//   .settings(sharedSettings)
+//   .settings(crossVersionSharedSources)
+//   .settings(
+//     description := "orcus hbase",
+//     moduleName  := "orcus-hbase",
+//     libraryDependencies += Hbase.withSources()
+//   )
+//   .dependsOn(core)
 
-lazy val monix = project
-  .in(file("modules/monix"))
-  .settings(sharedSettings)
-  .settings(crossVersionSharedSources)
-  .settings(
-    description := "orcus monix",
-    moduleName  := "orcus-monix"
-  )
-  .settings(
-    libraryDependencies += MonixEval.withSources
-  )
-  .dependsOn(core % "compile->compile;test->test")
+// lazy val monix = project
+//   .in(file("modules/monix"))
+//   .settings(sharedSettings)
+//   .settings(crossVersionSharedSources)
+//   .settings(
+//     description := "orcus monix",
+//     moduleName  := "orcus-monix"
+//   )
+//   .settings(
+//     libraryDependencies += MonixEval.withSources
+//   )
+//   .dependsOn(core % "compile->compile;test->test")
 
 lazy val `twitter-util` = project
   .in(file("modules/twitter-util"))
@@ -124,18 +124,18 @@ lazy val `cats-effect` = project
   )
   .dependsOn(core % "compile->compile;test->test")
 
-lazy val `hbase-cats-free` = project
-  .in(file("modules/hbase-cats-free"))
-  .settings(sharedSettings)
-  .settings(crossVersionSharedSources)
-  .settings(
-    description := "orcus cats-free",
-    moduleName  := "orcus-cats-free"
-  )
-  .settings(
-    libraryDependencies += CatsFree.withSources
-  )
-  .dependsOn(hbase)
+// lazy val `hbase-cats-free` = project
+//   .in(file("modules/hbase-cats-free"))
+//   .settings(sharedSettings)
+//   .settings(crossVersionSharedSources)
+//   .settings(
+//     description := "orcus cats-free",
+//     moduleName  := "orcus-cats-free"
+//   )
+//   .settings(
+//     libraryDependencies += CatsFree.withSources
+//   )
+//   .dependsOn(hbase)
 
 lazy val bigtable = project
   .in(file("modules/bigtable"))
@@ -150,30 +150,30 @@ lazy val bigtable = project
   )
   .dependsOn(core)
 
-lazy val `hbase-example` = project
-  .in(file("modules/hbase-example"))
-  .settings(sharedSettings)
-  .settings(publish / skip := true)
-  .settings(crossVersionSharedSources)
-  .settings(
-    description := "orcus example",
-    moduleName  := "orcus-example"
-  )
-  .settings(
-    libraryDependencies ++= Seq(
-      Hbase,
-      Logging,
-      LogbackClassic
-    ).map(_.withSources)
-  )
-  .settings(
-    fork            := true,
-    coverageEnabled := false
-  )
-  .settings(
-    scalacOptions -= "-Xfatal-warnings"
-  )
-  .dependsOn(`cats-effect`, `hbase-cats-free`)
+// lazy val `hbase-example` = project
+//   .in(file("modules/hbase-example"))
+//   .settings(sharedSettings)
+//   .settings(publish / skip := true)
+//   .settings(crossVersionSharedSources)
+//   .settings(
+//     description := "orcus example",
+//     moduleName  := "orcus-example"
+//   )
+//   .settings(
+//     libraryDependencies ++= Seq(
+//       Hbase,
+//       Logging,
+//       LogbackClassic
+//     ).map(_.withSources)
+//   )
+//   .settings(
+//     fork            := true,
+//     coverageEnabled := false
+//   )
+//   .settings(
+//     scalacOptions -= "-Xfatal-warnings"
+//   )
+//   .dependsOn(`cats-effect`, `hbase-cats-free`)
 
 lazy val `bigtable-example` = project
   .in(file("modules/bigtable-example"))
@@ -199,30 +199,30 @@ lazy val `bigtable-example` = project
   )
   .dependsOn(bigtable, `cats-effect`)
 
-lazy val benchmark = (project in file("modules/benchmark"))
-  .settings(publish / skip := true)
-  .settings(sharedSettings)
-  .settings(crossVersionSharedSources)
-  .settings(
-    description := "orcus benchmark",
-    moduleName  := "orcus-benchmark"
-  )
-  .settings(
-    libraryDependencies ++= Seq(
-      Java8Compat,
-      Hbase,
-      CatbirdUtil
-    )
-  )
-  .enablePlugins(JmhPlugin)
-  .dependsOn(
-    Seq(
-      hbase,
-      `twitter-util`,
-      `cats-effect`,
-      monix
-    ).map(_ % "test->test"): _*
-  )
+// lazy val benchmark = (project in file("modules/benchmark"))
+//   .settings(publish / skip := true)
+//   .settings(sharedSettings)
+//   .settings(crossVersionSharedSources)
+//   .settings(
+//     description := "orcus benchmark",
+//     moduleName  := "orcus-benchmark"
+//   )
+//   .settings(
+//     libraryDependencies ++= Seq(
+//       Java8Compat,
+//       Hbase,
+//       CatbirdUtil
+//     )
+//   )
+//   .enablePlugins(JmhPlugin)
+//   .dependsOn(
+//     Seq(
+//       hbase,
+//       `twitter-util`,
+//       `cats-effect`,
+//       monix
+//     ).map(_ % "test->test"): _*
+//   )
 
 lazy val compilerOptions = Seq(
   "-deprecation",

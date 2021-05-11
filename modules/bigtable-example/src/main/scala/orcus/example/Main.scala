@@ -4,10 +4,10 @@ import java.time.Duration
 import java.time.Instant
 import java.util.concurrent.ThreadLocalRandom
 
-import cats.effect.ContextShift
 import cats.effect.ExitCode
 import cats.effect.IO
 import cats.effect.IOApp
+import cats.effect.Spawn
 import cats.syntax.all._
 import com.google.api.gax.core.FixedCredentialsProvider
 import com.google.auth.oauth2.GoogleCredentials
@@ -126,7 +126,8 @@ object Main extends IOApp with LazyLogging {
 
       wrapped.mutateRowAsync(rowMutation)
     }
-    (traverse <* ContextShift[IO].shift) >> IO.unit
+    // (traverse <* ContextShift[IO].shift) >> IO.unit
+    (traverse <* Spawn[IO].cede) >> IO.unit
   }
 
   private def runRead(dataClient: BigtableDataClient): IO[Unit] =
@@ -144,7 +145,7 @@ object Main extends IOApp with LazyLogging {
     val filter = Filters.FILTERS.timestamp().range().of(start, end)
     val query  = Query.create(tableId).prefix(userName + keySep).filter(filter)
 
-    ((wrapped.readRowsAsync(query) <* ContextShift[IO].shift) >>=
+    ((wrapped.readRowsAsync(query) <* Spawn[IO].cede) >>=
       (rows => IO.fromEither(CRow.decodeRows[(String, CPU)](rows))))
       .flatTap(a => IO(logger.info(s"readRows: ${a.toString}")))
   }
