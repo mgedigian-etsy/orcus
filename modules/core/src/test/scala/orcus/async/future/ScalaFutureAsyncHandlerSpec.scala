@@ -6,13 +6,13 @@ import orcus.async.AsyncSpec
 import orcus.async.Par
 import orcus.async.implicits._
 import orcus.async.instances.future._
-import org.scalatest.flatspec.AsyncFlatSpec
+import org.scalatest.flatspec.AnyFlatSpec
 
 import scala.concurrent.Await
 import scala.concurrent.Future
 import scala.concurrent.duration._
 
-class ScalaFutureAsyncHandlerSpec extends AsyncFlatSpec with AsyncSpec {
+class ScalaFutureAsyncHandlerSpec extends AnyFlatSpec with AsyncSpec {
   it should "convert to a Future" in {
     def run = Par[CompletableFuture, Future].parallel(CompletableFuture.completedFuture(10))
     assert(10 === Await.result(run, 3.seconds))

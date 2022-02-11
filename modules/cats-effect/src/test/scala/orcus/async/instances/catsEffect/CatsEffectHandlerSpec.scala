@@ -3,13 +3,19 @@ package orcus.async.instances.catsEffect
 import java.util.concurrent.CompletableFuture
 
 import cats.effect.IO
-import cats.effect.testing.scalatest.AsyncIOSpec
+import cats.effect.testing.scalatest.EffectTestSupport
+import cats.effect.unsafe
 import orcus.async._
 import orcus.async.implicits._
 import orcus.async.instances.catsEffect.effect._
-import org.scalatest.flatspec.AsyncFlatSpec
+import org.scalatest.flatspec.AnyFlatSpec
 
-class CatsEffectHandlerSpec extends AsyncFlatSpec with AsyncSpec with AsyncIOSpec {
+import scala.concurrent.ExecutionContext
+
+class CatsEffectHandlerSpec extends AnyFlatSpec with AsyncSpec with EffectTestSupport {
+  implicit val executionContext: ExecutionContext = ExecutionContext.Implicits.global
+  implicit val ioRuntime: unsafe.IORuntime        = cats.effect.unsafe.IORuntime.global
+
   it should "convert to a IO" in {
     def run = Par[CompletableFuture, IO].parallel(CompletableFuture.completedFuture(10))
     assert(10 === run.unsafeRunSync())
