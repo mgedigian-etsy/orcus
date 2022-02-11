@@ -2,14 +2,12 @@ import sbt._
 
 object Dependencies {
   val V = new {
-    val `scala2.13` = "2.13.5"
-    val `scala2.12` = "2.12.12"
+    val `scala2.13` = "2.13.8"
 
     val kindProjector   = "0.13.2"
     val organizeImports = "0.5.0"
 
     val cats        = "2.6.1"
-    // val monix       = "3.4.0"
     val twitterUtil = "21.8.0"
     val catsEffect  = "3.3.5"
     val shapeless   = "2.3.7"
@@ -19,7 +17,6 @@ object Dependencies {
       val mockito    = "3.2.10.0"
     }
 
-    // val hbase            = "2.4.6"
     val bigtable         = "2.1.4"
     val logback          = "1.2.6"
     val scalaLogging     = "3.9.4"
@@ -30,14 +27,11 @@ object Dependencies {
   lazy val OrganizeImports = "com.github.liancheng" %% "organize-imports" % V.organizeImports
 
   lazy val CatsCore       = "org.typelevel"              %% "cats-core"             % V.cats
-  // lazy val CatsFree       = "org.typelevel"              %% "cats-free"             % V.cats
   lazy val CatsEffect     = "org.typelevel"              %% "cats-effect"           % V.catsEffect
-  // lazy val MonixEval      = "io.monix"                   %% "monix-eval"            % V.monix
   lazy val TwitterUtil    = "com.twitter"                %% "util-core"             % V.twitterUtil
   lazy val CatbirdUtil    = "io.catbird"                 %% "catbird-util"          % V.twitterUtil
   lazy val Shapeless      = "com.chuusai"                %% "shapeless"             % V.shapeless
   lazy val Java8Compat    = "org.scala-lang.modules"     %% "scala-java8-compat"    % V.scalaJava8Compat
-  // lazy val Hbase          = "org.apache.hbase"            % "hbase-client"          % V.hbase
   lazy val Bigtable       = "com.google.cloud"            % "google-cloud-bigtable" % V.bigtable
   lazy val LogbackClassic = "ch.qos.logback"              % "logback-classic"       % V.logback
   lazy val Logging        = "com.typesafe.scala-logging" %% "scala-logging"         % V.scalaLogging
