@@ -37,8 +37,10 @@ object Dependencies {
   lazy val Logging        = "com.typesafe.scala-logging" %% "scala-logging"         % V.scalaLogging
 
   lazy val Scalatest  = "org.scalatest"     %% "scalatest"       % V.scalatest
+  lazy val CatsEffectScalatest = "org.typelevel" %% "cats-effect-testing-scalatest" % "1.4.0"
+
   lazy val Scalacheck = "org.scalatestplus" %% "scalacheck-1-14" % V.scalatestplus.scalacheck
   lazy val Mockito    = "org.scalatestplus" %% "mockito-3-4"     % V.scalatestplus.mockito
 
-  lazy val TestDeps = Seq(Scalatest, Scalacheck, Mockito).map(_ % Test)
+  lazy val TestDeps = Seq(Scalatest,CatsEffectScalatest, Scalacheck, Mockito).map(_ % Test)
 }

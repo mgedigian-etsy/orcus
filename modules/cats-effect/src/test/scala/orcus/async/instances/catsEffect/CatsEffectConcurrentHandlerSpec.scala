@@ -3,17 +3,16 @@ package orcus.async.instances.catsEffect
 import java.util.concurrent.CompletableFuture
 
 import cats.effect.IO
-import cats.effect.Temporal
+import cats.effect.testing.scalatest.AsyncIOSpec
 import orcus.async._
 import orcus.async.implicits._
 import orcus.async.instances.catsEffect.concurrent._
-import org.scalatest.flatspec.AnyFlatSpec
+import org.scalatest.flatspec.AsyncFlatSpec
 
-import scala.concurrent._
+// import scala.concurrent._
 
-class CatsEffectConcurrentHandlerSpec extends AnyFlatSpec with AsyncSpec {
-  import ExecutionContext.global
-
+class CatsEffectConcurrentHandlerSpec extends AsyncFlatSpec with AsyncIOSpec with AsyncSpec {
+  // import ExecutionContext.global
   // implicit def timer: Temporal[IO] = IO.timer(global)
 
   it should "convert to a IO" in {

@@ -3,11 +3,11 @@ package orcus.async
 import java.util.concurrent.CompletableFuture
 import java.util.function.Supplier
 
-import org.scalatest.TestSuite
+import org.scalatest.AsyncTestSuite
 
 import scala.concurrent._
 
-trait AsyncSpec { _: TestSuite =>
+trait AsyncSpec { _: AsyncTestSuite =>
 
   def failedFuture[A](e: Throwable): CompletableFuture[A] =
     CompletableFuture.failedFuture(e)
